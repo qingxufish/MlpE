@@ -22,8 +22,7 @@ class MlpE(BaseModel):
         self.register_parameter('c', Parameter(torch.ones(1)))
 
         self.encoder = torch.nn.Linear(self.entity_dim+self.relation_dim, self.entity_dim*self.relation_dim)
-        self.encoder_hyper = torch.nn.Linear(self.entity_dim*self.relation_dim, self.entity_dim)
-        self.decoder = torch.nn.Linear(self.entity_dim*self.relation_dim+self.entity_dim, self.entity_dim)
+        self.decoder = torch.nn.Linear(self.entity_dim*self.relation_dim, self.entity_dim)
         self.loss = ConvELoss(self.device, kwargs.get('label_smoothing'), self.entity_cnt)
         self.init()
 
@@ -48,9 +47,6 @@ class MlpE(BaseModel):
         x = self.bn0(stacked_inputs)
         x = self.encoder(x)
         x = torch.relu(x)
-        x_hyper = self.encoder_hyper(x)
-        x_hyper = torch.relu(x_hyper)
-        x = torch.cat((x_hyper, x), dim=2)
         x = self.decoder(x)
         x = self.bn2(x)
         x = self.hidden_drop(x).view(batch_size, -1)
