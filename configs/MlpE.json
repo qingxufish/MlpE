@@ -1,0 +1,36 @@
+{
+	"dataset": "YAGO3-10",
+	"model_name": "MlpE",
+	"GPU": true,
+	"model_hyper_params": {
+		"entity_dim": 200,
+		"relation_dim": 200,
+		"input_dropout": 0.0,
+		"feature_map_dropout": 0.0,
+		"hidden_dropout": 0.06,
+		"label_smoothing": 0.1,
+		"use_bias": true
+	},
+	"optimizer": {
+		"algorithm": "adam",
+		"lr": 0.01,
+		"lr_decay": 10,
+		"weight_decay": 0.0
+	},
+	"train": {
+		"batch_size": 256,
+		"epochs": 200,
+		"shuffle": true,
+		"seed": 123,
+		"pretrain_model": null
+	},
+	"eval": {
+		"do_validate": true,
+		"do_test": true,
+		"valid_steps": 1,
+		"batch_size": 256,
+		"eval_func": "eval_for_double"
+	},
+	"seed": 123,
+	"save_model_path": "./output"
+}
