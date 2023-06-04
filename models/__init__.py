@@ -3,11 +3,13 @@ import logging
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from .MlpE import MlpE
+from .graphormer import graphormer
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 model_dict = {
-    'MlpE': MlpE
+    'MlpE': MlpE,
+    'graphormer':graphormer,
 }
 
 

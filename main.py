@@ -30,6 +30,9 @@ class Experiment:
         if self.model_name in ['MlpE']:
             self.train_func = train_without_label
             self.output_func = output_eval_tail
+        elif self.model_name in ['graphormer']:
+            self.train_func = train_graphormer
+            self.output_func = output_eval_tail
         else:
             logging.error(f'Could not find any training function for model={self.model_name}')
         opt_conf = config.get('optimizer')
@@ -99,7 +102,7 @@ class Experiment:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Knowledge graph inference arguments.')
-    parser.add_argument('-c', '--config', dest='config_file', help='The path of configuration json file.')
+    parser.add_argument('-c', '--config',default='configs/MlpE.json' ,dest='config_file', help='The path of configuration json file.')
     args = parser.parse_args()
     config = load_json_config(args.config_file, args)
     print(config)

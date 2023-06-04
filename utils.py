@@ -5,6 +5,7 @@ import logging
 import numpy as np
 from tqdm import tqdm
 import codecs
+import networkx as nx
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -263,3 +264,10 @@ def generate_goal_array(train_triplets, num_entities, num_relation):
         print(ind)
 
     return goal_array
+
+def generateGraph(trainDataset, relCount):
+    G = nx.Graph()
+    for single_edge in trainDataset:
+        G.add_edge(single_edge[0], single_edge[1], edge_name=single_edge[2])
+        G.add_edge(single_edge[1], single_edge[0], edge_name=single_edge[2]+relCount)
+    return G
